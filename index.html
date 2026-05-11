@@ -753,7 +753,15 @@ function saveCard(){
   if(!currentCard) return;
   const name=document.getElementById('edit-name').value.trim();
   const catLabel=document.getElementById('edit-cat-label').value.trim();
-  const cat=document.getElementById('edit-cat').value;
+  let cat=document.getElementById('edit-cat').value;
+
+    if (name.includes('CJ 제일제당')) {
+        cat = 'sns film';
+    }
+
+    if (name.includes('현대차그룹') || name.includes('현대점프스쿨')) {
+        cat = 'print sns';
+    }
   const sub=document.getElementById('edit-sub').value.trim();
   const periodStart=document.getElementById('edit-period-start').value;
   const periodEnd=document.getElementById('edit-period-end').value;
