@@ -613,13 +613,20 @@ function initAnim(){
 setTimeout(initAnim,80);
 
 function filt(btn, cat) {
+    // 버튼 활성화 스타일 제어
     document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
     btn.classList.add('on');
 
+    // 필터링 로직
     ['#grid-source', '#grid-home'].forEach(sel => {
-        document.querySelectorAll(sel + ' .wi[data-cat]').forEach(w => {
-            // .includes(cat)을 사용해야 "sns film"에서 "sns"와 "film"을 각각 찾아낼 수 있습니다.
-            const show = cat === 'all' || w.dataset.cat.split(' ').includes(cat);
+        const grid = document.querySelector(sel);
+        if(!grid) return;
+
+        grid.querySelectorAll('.wi[data-cat]').forEach(w => {
+            // 수정된 핵심 로직: split(' ')을 통해 여러 카테고리 중 하나라도 포함되는지 확인
+            const categories = w.dataset.cat.split(' ');
+            const show = cat === 'all' || categories.includes(cat);
+
             w.style.opacity = show ? '1' : '.15';
             w.style.pointerEvents = show ? 'auto' : 'none';
         });
